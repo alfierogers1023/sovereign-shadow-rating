@@ -1,5 +1,3 @@
-# Sovereign Shadow-Rating Model
-
 A fundamentals-driven sovereign credit "shadow rating" engine. It scores ~40
 sovereigns from macro / fiscal / external / governance indicators, predicts a
 credit rating, and compares the prediction to the actual S&P / Moody's / Fitch
