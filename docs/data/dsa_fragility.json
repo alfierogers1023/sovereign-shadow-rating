@@ -1,0 +1,296 @@
+{
+ "AGO": {
+  "debt_gdp_now": 51.6,
+  "baseline_end": 14.95,
+  "combined_adverse_end": 31.014,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 16.064
+ },
+ "ARG": {
+  "debt_gdp_now": 70.4,
+  "baseline_end": -2.978,
+  "combined_adverse_end": 2.117,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 5.095
+ },
+ "AUS": {
+  "debt_gdp_now": 50.6,
+  "baseline_end": 45.851,
+  "combined_adverse_end": 71.218,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 25.367
+ },
+ "BEL": {
+  "debt_gdp_now": 109.2,
+  "baseline_end": 121.433,
+  "combined_adverse_end": 174.176,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 52.743
+ },
+ "BRA": {
+  "debt_gdp_now": 96.5,
+  "baseline_end": 116.25,
+  "combined_adverse_end": 172.611,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 56.361
+ },
+ "CAN": {
+  "debt_gdp_now": 110.7,
+  "baseline_end": 97.031,
+  "combined_adverse_end": 141.431,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 44.4
+ },
+ "CHE": {
+  "debt_gdp_now": 38.5,
+  "baseline_end": 30.192,
+  "combined_adverse_end": 54.402,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 24.21
+ },
+ "CHL": {
+  "debt_gdp_now": 42.5,
+  "baseline_end": 45.03,
+  "combined_adverse_end": 69.612,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 24.582
+ },
+ "CHN": {
+  "debt_gdp_now": 106.9,
+  "baseline_end": 126.883,
+  "combined_adverse_end": 173.229,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 46.346
+ },
+ "COL": {
+  "debt_gdp_now": 60.9,
+  "baseline_end": 63.445,
+  "combined_adverse_end": 93.277,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 29.831
+ },
+ "CZE": {
+  "debt_gdp_now": 46.4,
+  "baseline_end": 48.202,
+  "combined_adverse_end": 74.435,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 26.232
+ },
+ "DEU": {
+  "debt_gdp_now": 64.6,
+  "baseline_end": 78.983,
+  "combined_adverse_end": 115.491,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 36.509
+ },
+ "EGY": {
+  "debt_gdp_now": 87.0,
+  "baseline_end": 54.612,
+  "combined_adverse_end": 89.51,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 34.898
+ },
+ "ESP": {
+  "debt_gdp_now": 98.2,
+  "baseline_end": 72.91,
+  "combined_adverse_end": 113.093,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 40.183
+ },
+ "FRA": {
+  "debt_gdp_now": 118.4,
+  "baseline_end": 134.876,
+  "combined_adverse_end": 194.83,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 59.954
+ },
+ "GBR": {
+  "debt_gdp_now": 103.6,
+  "baseline_end": 101.604,
+  "combined_adverse_end": 150.718,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 49.113
+ },
+ "GHA": {
+  "debt_gdp_now": 53.0,
+  "baseline_end": 24.844,
+  "combined_adverse_end": 47.067,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 22.224
+ },
+ "GRC": {
+  "debt_gdp_now": 136.9,
+  "baseline_end": 68.911,
+  "combined_adverse_end": 114.727,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 45.816
+ },
+ "HUN": {
+  "debt_gdp_now": 77.9,
+  "baseline_end": 89.481,
+  "combined_adverse_end": 132.039,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 42.558
+ },
+ "IDN": {
+  "debt_gdp_now": 41.5,
+  "baseline_end": 37.97,
+  "combined_adverse_end": 61.626,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 23.656
+ },
+ "IND": {
+  "debt_gdp_now": 83.4,
+  "baseline_end": 68.836,
+  "combined_adverse_end": 100.684,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 31.848
+ },
+ "ITA": {
+  "debt_gdp_now": 138.4,
+  "baseline_end": 123.868,
+  "combined_adverse_end": 187.198,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 63.331
+ },
+ "JPN": {
+  "debt_gdp_now": 204.4,
+  "baseline_end": 170.732,
+  "combined_adverse_end": 247.491,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 76.759
+ },
+ "KEN": {
+  "debt_gdp_now": 71.6,
+  "baseline_end": 62.496,
+  "combined_adverse_end": 94.454,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 31.958
+ },
+ "KOR": {
+  "debt_gdp_now": 54.4,
+  "baseline_end": 47.578,
+  "combined_adverse_end": 73.667,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 26.089
+ },
+ "LKA": {
+  "debt_gdp_now": 100.8,
+  "baseline_end": 90.414,
+  "combined_adverse_end": 142.657,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 52.243
+ },
+ "MAR": {
+  "debt_gdp_now": 65.8,
+  "baseline_end": 61.265,
+  "combined_adverse_end": 93.176,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 31.91
+ },
+ "MEX": {
+  "debt_gdp_now": 62.7,
+  "baseline_end": 71.977,
+  "combined_adverse_end": 117.464,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 45.488
+ },
+ "NGA": {
+  "debt_gdp_now": 32.3,
+  "baseline_end": 21.773,
+  "combined_adverse_end": 34.35,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 12.577
+ },
+ "NLD": {
+  "debt_gdp_now": 44.1,
+  "baseline_end": 53.201,
+  "combined_adverse_end": 80.985,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 27.784
+ },
+ "PAK": {
+  "debt_gdp_now": 70.1,
+  "baseline_end": 31.359,
+  "combined_adverse_end": 58.453,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 27.094
+ },
+ "PHL": {
+  "debt_gdp_now": 60.2,
+  "baseline_end": 49.255,
+  "combined_adverse_end": 76.541,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 27.286
+ },
+ "POL": {
+  "debt_gdp_now": 65.7,
+  "baseline_end": 87.07,
+  "combined_adverse_end": 122.854,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 35.785
+ },
+ "PRT": {
+  "debt_gdp_now": 85.6,
+  "baseline_end": 49.359,
+  "combined_adverse_end": 83.039,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 33.68
+ },
+ "ROU": {
+  "debt_gdp_now": 61.9,
+  "baseline_end": 71.242,
+  "combined_adverse_end": 102.001,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 30.759
+ },
+ "SAU": {
+  "debt_gdp_now": 32.1,
+  "baseline_end": 47.413,
+  "combined_adverse_end": 70.028,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 22.614
+ },
+ "SWE": {
+  "debt_gdp_now": 36.7,
+  "baseline_end": 46.498,
+  "combined_adverse_end": 70.194,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 23.695
+ },
+ "TUR": {
+  "debt_gdp_now": 25.5,
+  "baseline_end": 6.337,
+  "combined_adverse_end": 13.776,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 7.439
+ },
+ "UKR": {
+  "debt_gdp_now": 122.6,
+  "baseline_end": 196.334,
+  "combined_adverse_end": 256.098,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 59.764
+ },
+ "USA": {
+  "debt_gdp_now": 125.8,
+  "baseline_end": 131.699,
+  "combined_adverse_end": 186.755,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 55.057
+ },
+ "ZAF": {
+  "debt_gdp_now": 78.9,
+  "baseline_end": 89.029,
+  "combined_adverse_end": 138.033,
+  "baseline_rising": true,
+  "adverse_minus_baseline": 49.004
+ },
+ "ZMB": {
+  "debt_gdp_now": 86.0,
+  "baseline_end": 37.273,
+  "combined_adverse_end": 62.764,
+  "baseline_rising": false,
+  "adverse_minus_baseline": 25.491
+ }
+}

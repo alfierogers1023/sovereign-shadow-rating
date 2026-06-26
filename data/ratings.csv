@@ -1,0 +1,47 @@
+# Sovereign long-term foreign-currency issuer ratings.
+# Source: Wikipedia "List of countries by credit rating", snapshot fetched 2026-06-25.
+# Ratings drift constantly. Re-pull or verify before relying on these as a target.
+# Hyphens are ASCII '-'; the loader also accepts the Unicode minus '\u2212'.
+iso3,name,sp,fitch,moodys,snapshot_date
+USA,United States,AA+,AA+,Aa1,2026-06-25
+DEU,Germany,AAA,AAA,Aaa,2026-06-25
+NLD,Netherlands,AAA,AAA,Aaa,2026-06-25
+CAN,Canada,AAA,AA+,Aaa,2026-06-25
+AUS,Australia,AAA,AAA,Aaa,2026-06-25
+SWE,Sweden,AAA,AAA,Aaa,2026-06-25
+CHE,Switzerland,AAA,AAA,Aaa,2026-06-25
+GBR,United Kingdom,AA,AA-,Aa3,2026-06-25
+FRA,France,A+,A+,Aa3,2026-06-25
+JPN,Japan,A+,A,A1,2026-06-25
+KOR,South Korea,AA,AA-,Aa2,2026-06-25
+BEL,Belgium,AA,A+,Aa3,2026-06-25
+CZE,Czechia,AA-,AA-,Aa3,2026-06-25
+CHL,Chile,A,A-,A2,2026-06-25
+SAU,Saudi Arabia,A+,A+,Aa3,2026-06-25
+CHN,China,A+,A,A1,2026-06-25
+POL,Poland,A-,A-,A2,2026-06-25
+ITA,Italy,BBB+,BBB+,Baa2,2026-06-25
+ESP,Spain,A+,A,A3,2026-06-25
+PRT,Portugal,A+,A,A3,2026-06-25
+MEX,Mexico,BBB,BBB-,Baa2,2026-06-25
+IDN,Indonesia,BBB,BBB,Baa2,2026-06-25
+IND,India,BBB,BBB-,Baa3,2026-06-25
+PHL,Philippines,BBB+,BBB,Baa2,2026-06-25
+HUN,Hungary,BBB-,BBB,Ba1,2026-06-25
+ROU,Romania,BBB-,BBB-,Baa3,2026-06-25
+BRA,Brazil,BB,BB,Ba1,2026-06-25
+ZAF,South Africa,BB,BB-,Ba2,2026-06-25
+COL,Colombia,BB,BB,Baa2,2026-06-25
+GRC,Greece,BBB,BBB,Baa3,2026-06-25
+TUR,Turkey,BB-,BB-,B1,2026-06-25
+MAR,Morocco,BBB-,BB+,Ba1,2026-06-25
+EGY,Egypt,B,B,Caa1,2026-06-25
+NGA,Nigeria,B-,B,Caa1,2026-06-25
+KEN,Kenya,B,B-,B3,2026-06-25
+PAK,Pakistan,B-,B-,Caa1,2026-06-25
+AGO,Angola,B-,B-,B3,2026-06-25
+ARG,Argentina,CCC+,B-,Caa1,2026-06-25
+UKR,Ukraine,CCC+,CCC,Ca,2026-06-25
+ZMB,Zambia,CCC+,B-,Caa3,2026-06-25
+GHA,Ghana,B-,B-,Caa3,2026-06-25
+LKA,Sri Lanka,CCC+,CCC+,Caa1,2026-06-25

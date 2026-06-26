@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+data/raw/*.parquet
+data/raw/weo.*
+data/raw/WEO*
+data/processed/*.parquet
+.DS_Store
+.ipynb_checkpoints/
+.venv-1/
