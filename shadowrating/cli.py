@@ -24,6 +24,7 @@ report. It never silently drops a country.
 from __future__ import annotations
 
 import argparse
+import datetime
 import sys
 
 import pandas as pd
@@ -32,6 +33,7 @@ from . import config, ratings as ratings_mod
 from .loaders import worldbank, imf_weo, fred
 from . import coverage as coverage_mod
 from . import features as features_mod
+from . import data_quality as data_quality_mod
 from . import scorecard as scorecard_mod
 from . import model_b as model_b_mod
 from . import validation as validation_mod
@@ -105,9 +107,28 @@ def cmd_phase0(args) -> None:
     panel = coverage_mod.assemble_panel(*frames)
     coverage_mod.print_coverage(panel)
 
+    vintage = coverage_mod.assemble_vintage(*frames)
+    age = data_quality_mod.indicator_age(vintage)
+    abs_stale = age.max(axis=1).dropna()
+    excess = data_quality_mod.excess_age(age).max(axis=1).dropna().sort_values(ascending=False)
+    outliers = excess[excess > 0]
+    if not abs_stale.empty:
+        print(f"Data vintage: absolute ages run {int(abs_stale.min())}-{int(abs_stale.max())} "
+              f"years behind {datetime.date.today().year} (mostly reflects each source's "
+              f"normal publication lag, not a country-specific problem).")
+    if not outliers.empty:
+        print("Country-specific staleness (indicator age above the sample norm for that "
+              "same indicator -- the actual red flag, not the absolute age above): "
+              + ", ".join(f"{iso3} (+{int(yrs)}y)" for iso3, yrs in outliers.head(5).items()))
+    else:
+        print("No country has any indicator noticeably staler than its peers this run.")
+
     out = config.RAW_DIR / "panel.parquet"
     panel.to_parquet(out)
-    print(f"Panel cached -> {out.relative_to(config.PROJECT_ROOT)}")
+    vintage_out = config.RAW_DIR / "vintage.parquet"
+    vintage.to_parquet(vintage_out)
+    print(f"Panel cached -> {out.relative_to(config.PROJECT_ROOT)} "
+          f"(+ vintage -> {vintage_out.name})")
     print("Phase 0 complete. Next: Phase 1 (scaling + pillar features).")
 
 
@@ -155,7 +176,7 @@ def cmd_phase2(args) -> None:
 
     print("\n>>> Phase 2: Model A rules-based scorecard\n")
     rt = ratings_mod.load_ratings()
-    table = scorecard_mod.build_scorecard(feats["pillar_scores"], feats["composite"], rt)
+    table = scorecard_mod.build_scorecard(panel, feats["pillar_scores"], feats["composite"], rt)
 
     calib = table.attrs["calibration"]
     print(f"In-sample calibration: notch = {calib['intercept']:.2f} + "
@@ -196,10 +217,13 @@ def cmd_phase3(args) -> None:
     rt_idx = rt.set_index("iso3")
     notch = rt_idx["consensus_notch"].astype(float).reindex(pillar_scores.index)
 
-    band_table = model_b_mod.fit_ordered_logit_loocv(pillar_scores, notch)
+    band_table = model_b_mod.fit_ordered_logit_loocv(panel, notch)
     band_table["name"] = rt_idx["name"].reindex(band_table.index)
     band_table["band_true_label"] = band_table["band_true"].map(ratings_mod.band_label)
     band_table["band_pred_label"] = band_table["band_pred"].round().map(ratings_mod.band_label)
+    band_table["ci_label"] = band_table.apply(
+        lambda r: f"[{ratings_mod.band_label(r['band_ci_lower'])}, {ratings_mod.band_label(r['band_ci_upper'])}]"
+        if pd.notna(r["band_ci_lower"]) else None, axis=1)
 
     band_summary = model_b_mod.band_error_summary(band_table)
     print(f"Ordered logit LOOCV (n={band_summary['n']}): "
@@ -207,13 +231,26 @@ def cmd_phase3(args) -> None:
           f"within one band={band_summary['within_one_band_rate']:.0%}, "
           f"MAE={band_summary['mae_bands']:.2f} bands")
 
+    valid_ci = band_table.dropna(subset=["outside_ci"])
+    coverage_rate = 1 - valid_ci["outside_ci"].astype(bool).mean()
+    print(f"\n90% prediction-interval calibration check: the actual band falls "
+          f"inside the model's own 90% interval {coverage_rate:.0%} of the time "
+          f"(n={len(valid_ci)}). Should be close to 90% if the model's stated "
+          f"uncertainty is trustworthy; notably below it means the model is "
+          f"overconfident, notably above means it's underconfident (too wide "
+          f"to be useful).")
+
     mismatches = band_table.dropna(subset=["band_true", "band_pred"])
     mismatches = mismatches[mismatches["band_true"] != mismatches["band_pred"].round()]
     if not mismatches.empty:
-        print(f"\n{len(mismatches)} band mismatches:")
-        print(mismatches[["name", "band_true_label", "band_pred_label"]].to_string())
+        print(f"\n{len(mismatches)} band mismatches (point estimate differs from actual; "
+              f"ci_label shows the model's own 90% interval -- a mismatch *inside* that "
+              f"interval is a wrong point guess the model was honestly unsure about, not "
+              f"a confident miss):")
+        print(mismatches[["name", "band_true_label", "band_pred_label", "ci_label",
+                          "outside_ci"]].to_string())
 
-    gbm_preds, importance = model_b_mod.fit_gbm_loocv(pillar_scores, notch)
+    gbm_preds, importance = model_b_mod.fit_gbm_loocv(panel, notch)
     gbm_summary = model_b_mod.notch_error_summary(notch, gbm_preds)
     print(f"\nGradient boosting LOOCV (n={gbm_summary['n']}): "
           f"MAE={gbm_summary['mae']:.2f} notches, RMSE={gbm_summary['rmse']:.2f}, "
@@ -235,9 +272,11 @@ def cmd_phase3(args) -> None:
 
 def cmd_phase4(args) -> None:
     panel_path = config.RAW_DIR / "panel.parquet"
-    if args.fresh or not panel_path.exists():
+    vintage_path = config.RAW_DIR / "vintage.parquet"
+    if args.fresh or not panel_path.exists() or not vintage_path.exists():
         cmd_phase0(args)
     panel = pd.read_parquet(panel_path)
+    vintage = pd.read_parquet(vintage_path)
     feats = features_mod.build_features(panel)
     pillar_scores = feats["pillar_scores"]
 
@@ -247,24 +286,55 @@ def cmd_phase4(args) -> None:
     rt_idx = rt.set_index("iso3")
     notch = rt_idx["consensus_notch"].astype(float).reindex(pillar_scores.index)
 
-    scorecard_table = scorecard_mod.build_scorecard(pillar_scores, feats["composite"], rt)
-    band_table = model_b_mod.fit_ordered_logit_loocv(pillar_scores, notch)
-    gbm_preds, _ = model_b_mod.fit_gbm_loocv(pillar_scores, notch)
+    scorecard_table = scorecard_mod.build_scorecard(panel, pillar_scores, feats["composite"], rt)
+    band_table = model_b_mod.fit_ordered_logit_loocv(panel, notch)
+    gbm_preds, _ = model_b_mod.fit_gbm_loocv(panel, notch)
 
     master = validation_mod.build_master_table(scorecard_table, band_table, gbm_preds, rt)
 
+    dq = data_quality_mod.build_data_quality_table(vintage, feats["missing_counts"],
+                                                    total_indicators=feats["scaled"].shape[1])
+    master = master.join(dq)
+
     cols = ["name", "actual_letter", "model_a_divergence", "model_b_gbm_divergence",
-            "models_agree_direction"]
-    print("Combined divergence table, sorted by max |divergence| across both models:")
+            "models_agree_direction", "max_excess_age_years", "missing_share"]
+    print("Combined divergence table, sorted by max |divergence| across both models\n"
+          "(max_excess_age_years = how many years older this country's most unusual "
+          "indicator is vs. the sample norm for that indicator -- not raw age, which "
+          "mostly reflects each source's universal lag, not a country-specific problem. "
+          "missing_share lets you judge signal vs. artefact further -- see CLAUDE.md):")
     print(master.sort_values("max_abs_divergence", ascending=False)[cols].round(2).to_string())
 
     agree = master[master["models_agree_direction"]]
     print(f"\n{len(agree)} countries where Model A and Model B's gradient-boosted "
           f"regressor diverge from the agencies in the *same* direction "
-          f"(the strongest version of the signal -- two differently-built "
-          f"models, one consistent disagreement with the agencies):")
+          f"(point-estimate agreement -- two differently-built models, one "
+          f"consistent disagreement with the agencies):")
     if not agree.empty:
         print(agree.sort_values("max_abs_divergence", ascending=False)[cols].round(2).to_string())
+
+    confident = master[master["confident_divergence"].fillna(False)]
+    print(f"\n{len(confident)} of those also pass a stricter, uncertainty-aware bar: the "
+          f"ordered logit's own 90% prediction interval doesn't even contain the actual "
+          f"band (not just \"the point guess differs\" but \"the model is confident the "
+          f"agencies are wrong\"), corroborated by Model A and B's point estimates too. "
+          f"Treat this short list as the highest-confidence divergences in the whole table:")
+    if not confident.empty:
+        ci_cols = ["name", "actual_letter", "model_b_band_pred", "band_ci_lower", "band_ci_upper"]
+        print(confident[ci_cols].round(1).to_string())
+
+    flagged_old = agree[agree["max_excess_age_years"] > 0] if not agree.empty else agree
+    if not flagged_old.empty:
+        print(f"\nOf those, {len(flagged_old)} rest on at least one indicator that is "
+              f"older than the sample norm for that indicator -- treat these divergences "
+              f"with more caution, not less, than the rest of the list:")
+        for iso3, row in flagged_old.iterrows():
+            pillars = master.loc[iso3, "stale_pillars"]
+            print(f"  {row['name']}: +{row['max_excess_age_years']:.0f}y, "
+                  f"affects pillar(s): {', '.join(pillars)}")
+    elif not agree.empty:
+        print("\nNone of the flagged countries' divergences trace to unusually stale "
+              "data -- the staleness explanation can be ruled out for this run's flags.")
 
     try:
         yields = fred.fetch_yields(not args.fresh)

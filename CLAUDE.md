@@ -75,7 +75,10 @@ The `shadowrating` package is scaffolded and working:
   via LOOCV. Unlike Model A, these let the data choose pillar weights —
   that's the actual methodological contrast the "two models" principle is
   about. Feature importances are reported but explicitly labelled descriptive,
-  not predictive, per CLAUDE.md.
+  not predictive, per CLAUDE.md. The ordered logit also returns a full 6-band
+  predicted probability distribution and a 90% prediction interval per
+  country (see the uncertainty decision below) — point estimates alone
+  understate how unsure this model usually is.
 - `shadowrating/validation.py` — Phase 4: combines Model A and Model B's LOOCV
   predictions into one master divergence table per country, flags countries
   where *both* models diverge from the agencies by >2 notches in the *same*
@@ -84,6 +87,13 @@ The `shadowrating` package is scaffolded and working:
   against FRED bond-spread residuals (spread minus what the agency notch alone
   would predict) where FRED data is available. Skips the market cross-check
   cleanly (not silently) when `FRED_API_KEY` isn't set.
+- `shadowrating/data_quality.py` — signal-vs-artefact rigor pass: per-country
+  data vintage (`excess_age` — an indicator's age vs. the sample median for
+  that same indicator, which isolates a country-specific gap from a source's
+  universal publication lag) and missing-share (share of pillar/indicator
+  slots absent, never filled with a guessed value). Joined onto the Phase 4
+  divergence table and exported to the dashboard so a reader can tell a real
+  divergence from one resting on stale or thin data.
 - `shadowrating/dsa.py` — Phase 5: IMF-style debt sustainability analysis.
   Standard debt dynamics identity `d_t = d_{t-1}*(1+i)/(1+g) - pb` on the
   *raw* WEO panel (actual % of GDP levels, not the percentile-rank features).
@@ -121,37 +131,60 @@ populated (`economic`, `external`, `fiscal`, `institutional`, `monetary`).
 **Below numbers are from the run with fiscal data included** — they
 supersede earlier estimates from when `fiscal` was an empty pillar.
 
-**Phase 2 result:** LOOCV MAE = 2.96 notches, RMSE = 3.92, bias = -0.07. 10
-IG/HY boundary mismatches. Biggest divergences: Sri Lanka (model A-, actual
-CCC+, +9.9), Ghana (model BBB+, actual CCC+, +9.4), USA (model BBB-, actual
-AA+, **-8.3**). Adding the fiscal pillar did *not* shrink Sri Lanka's gap as
+**Phase 2 result (post leakage-fix, current):** LOOCV MAE = 3.00 notches,
+RMSE = 3.93, bias = -0.27. 10 IG/HY boundary mismatches. Biggest divergences:
+Sri Lanka (+9.6), Ghana (+9.1), USA (model BBB-, actual AA+, **-8.5**),
+Belgium (-7.0). Adding the fiscal pillar did *not* shrink Sri Lanka's gap as
 hypothesized — it got slightly worse — and surfaced a new, larger one: Model A
 penalizes the US hard for fiscal metrics (high debt/GDP, persistent deficit)
 that the agencies don't punish nearly as much, almost certainly because pure
 percentile-rank scoring can't see reserve-currency status / unique funding
 advantages. That's a real, structural blind spot worth stating plainly in the
-write-up, not something to engineer away.
+write-up, not something to engineer away. (Pre-fix numbers were MAE 2.96,
+RMSE 3.92, bias -0.07 — the fold-wise-scaling fix above moved these slightly,
+as expected from a real-but-small leak, not a different conclusion.)
 
-**Phase 3 result:** ordered logit LOOCV — 57% exact band match, 88% within one
-band, MAE 0.62 bands. Gradient boosting LOOCV — MAE 1.95 notches, RMSE 2.60,
-bias -0.02 (still beats Model A). GBM feature importance with fiscal included
-(descriptive only): institutional 0.59 ≫ monetary 0.24 > economic 0.09 ≈
-external 0.05 ≈ **fiscal 0.03** — the tree model effectively decided fiscal
-score, in isolation, isn't very predictive of the agency notch (consistent
-with the US finding above: fiscal alone is a weak/confounded signal). Sri
-Lanka is still badly misclassified by the ordered logit (predicted "A" band vs
-actual CCC-D).
+**Phase 3 result (post leakage-fix, current):** ordered logit LOOCV — 52%
+exact band match, 88% within one band, MAE 0.67 bands. Gradient boosting
+LOOCV — MAE 1.88 notches, RMSE 2.64, bias -0.25 (still beats Model A). GBM
+feature importance with fiscal included (descriptive only): institutional
+0.58 ≫ monetary 0.24 > economic 0.09 ≈ external 0.05 ≈ **fiscal 0.03** — the
+tree model effectively decided fiscal score, in isolation, isn't very
+predictive of the agency notch (consistent with the US finding above: fiscal
+alone is a weak/confounded signal). Sri Lanka is still badly misclassified by
+the ordered logit (predicted "A" band vs actual CCC-D). (Pre-fix: 57%/88%/0.62
+bands, GBM MAE 1.95/RMSE 2.60/bias -0.02.) **Uncertainty check (new):** the
+ordered logit's 90% prediction interval actually contains the truth 98% of
+the time across the sample — it's underconfident, not overconfident; most of
+its apparent "misses" are the model honestly being unsure, not being wrong
+with conviction. Sri Lanka is the single exception: the model's own 90%
+interval excludes the actual band, the only country in the sample where that
+happens.
 
-**Phase 4 result:** 7 countries where Model A and Model B's GBM diverge from
-the agencies by >2 notches in the *same* direction: Sri Lanka, Ghana, USA,
-Mexico, Romania, Australia, Kenya. The market-spread cross-check is now live
-(FRED pulled successfully) — for the 21 FRED-covered (mostly OECD) countries,
-Model A's divergence direction is corroborated by bond-spread residuals in
-13/21 cases, including the three largest divergences in that subset (Mexico,
-Australia, USA all have wider spreads than their agency notch alone would
-predict — some independent market support for those countries being
-overrated by the agencies relative to fundamentals, exactly where Model A
-also flags them).
+**Phase 4 result (post leakage-fix, current):** 11 countries where Model A and
+Model B's GBM diverge from the agencies by >2 notches in the *same* direction:
+Sri Lanka, Ghana, USA, Belgium, China, Argentina, Colombia, Romania, Mexico,
+Australia, Germany. The market-spread cross-check is live (FRED pulled
+successfully) — for the 21 FRED-covered (mostly OECD) countries, Model A's
+divergence direction is corroborated by bond-spread residuals in 13/21 cases,
+including the three largest divergences in that subset (Mexico, Australia,
+USA all have wider spreads than their agency notch alone would predict — some
+independent market support for those countries being overrated by the
+agencies relative to fundamentals, exactly where Model A also flags them).
+Of the 11 same-direction-flagged countries, only **Sri Lanka** also carries a
+data-vintage red flag (+2 years excess age, spanning 4 of its 5 pillars) —
+every other flagged divergence (Ghana, USA, Belgium, China, Argentina,
+Colombia, Romania, Mexico, Australia, Germany) rests on data no staler than
+the sample norm, so staleness can be ruled out as the explanation for those.
+**Adding the uncertainty check converges on the same single name a third way:**
+of the 11 same-direction-flagged countries, only Sri Lanka also has its
+actual rating fall outside the ordered logit's own 90% interval
+(`confident_divergence` = true for exactly 1 country). Three independent
+methods — point-estimate agreement, data-vintage staleness, and predictive-
+interval miss — single out the same country; nothing else in the sample gets
+flagged by more than one of the three. That convergence, not the raw notch
+MAE, is the strongest evidence in this whole project and the one fact worth
+leading with in any write-up.
 
 **Fixed/built this session:**
 - World Bank renamed WGI indicator codes from bare codes (`GE.EST`, …) to
@@ -171,6 +204,15 @@ also flags them).
   error that looks like a network problem but isn't. Fixed by pointing
   `SSL_CERT_FILE` at `certifi`'s bundle in `shadowrating/__init__.py`, so it's
   set before any loader runs, on any machine.
+- `worldbank.py`'s WDI/WGI loader was silently returning `year=None` for
+  every single observation. Root cause: `wb.data.DataFrame(..., mrnev=1)`
+  drops the vintage year from its output entirely when `mrnev` is used,
+  while the lower-level `wb.data.fetch()` generator returns it correctly in
+  every mode. Switched `_fetch` to use `wb.data.fetch()` directly. This had
+  been silently breaking the data-vintage feature (see the new "signal vs.
+  artefact" decision above) since whatever session first wrote that loader —
+  worth a reminder that "the API call succeeds and returns plausible-looking
+  values" doesn't mean every column it returns is populated correctly.
 - `FRED_API_KEY` is set in `.env` (gitignored, not committed). Run
   `set -a && source .env && set +a` before `python -m shadowrating.cli ...` in
   a fresh shell, or `export FRED_API_KEY=...` directly.
@@ -230,6 +272,79 @@ something to do automatically. See "Publishing to GitHub Pages" below.
 - **LOOCV, not in-sample.** Report the out-of-sample notch-error distribution.
   Done for both Model A (`scorecard.loocv_predict`) and Model B
   (`model_b.fit_ordered_logit_loocv` / `fit_gbm_loocv`).
+- **LOOCV must also be fold-wise in *feature engineering*, not just model
+  fitting.** Found during a rigor pass: percentile-rank scaling computed once
+  on the full 42-country panel (as `features.build_features` does) leaks mild,
+  X-only (not target) information into a number reported as out-of-sample — a
+  held-out country's rank reflects a distribution that includes itself.
+  Measured the size directly before deciding whether to fix it: mean 3.2
+  percentage points, max 4.7pp shift per indicator across all 42 countries.
+  Fixed properly rather than just disclosed: `features.loocv_folds` rebuilds
+  percentile-rank scaling from scratch on the 41 training countries every
+  fold, and scales the held-out country's raw indicators against that
+  training distribution only. `scorecard.loocv_predict` and
+  `model_b.fit_ordered_logit_loocv`/`fit_gbm_loocv` all consume this now
+  instead of a precomputed full-sample `pillar_scores`/`composite`. Effect on
+  headline numbers was small and in the expected direction, confirming the
+  leak was real but minor: Model A MAE 2.96→3.00, Model B GBM MAE 1.95→1.88,
+  ordered logit exact-band-match 57%→52%. `features.build_features` (full-
+  sample scaling) is still correct to use for *descriptive* display only —
+  e.g. the dashboard's pillar bar chart for one country — never for a number
+  reported as validated/out-of-sample.
+- **Signal vs. artefact: surface data vintage and missing-share alongside
+  every divergence, don't just report the divergence.** A real finding from
+  this rigor pass: WDI/WGI's loader (`worldbank.py`) was silently returning
+  `year=None` for every cell because `wb.data.DataFrame(..., mrnev=1)` drops
+  the vintage year — switched to `wb.data.fetch()` (the lower-level
+  generator), which returns it correctly in both mrnev and pinned-vintage
+  modes. Once vintage was actually available, the useful metric turned out
+  *not* to be absolute age (WDI/WGI lag ~2 years for literally every country,
+  so "max age" is ~2 for almost everyone and is a near-constant, not a
+  signal) but **excess age**: an indicator's age minus that same indicator's
+  age for the sample median (`data_quality.excess_age`). That isolates a
+  country-specific data gap from a source's universal publication lag.
+  Result: Sri Lanka is the only country in the sample whose entire WEO
+  release (fiscal, external, economic, *and* monetary pillars) is stuck on a
+  vintage two years older than every single peer; Zambia has one indicator
+  one year behind. Both are exactly the names already flagged as large
+  divergences in Phase 4 — this lets a reader judge whether that's a real
+  disagreement with the agencies or partly an artefact of stale inputs,
+  rather than taking the divergence number at face value. Also tracks
+  "missing share" (share of pillar/indicator slots absent and excluded from
+  that pillar's average) as the second signal-vs-artefact axis — currently
+  0% everywhere since panel coverage is 100%, which is itself worth stating
+  plainly rather than omitting an always-zero metric. Surfaced in
+  `data_quality.py`, the Phase 4 CLI output, and the dashboard (a "Stale?"
+  column in the divergence table + a data-quality note in the country detail
+  panel).
+- **Report uncertainty, not just point estimates — and let it gate the
+  divergence flag.** `model_b.fit_ordered_logit_loocv` now returns each
+  fold's full 6-band predicted probability distribution (`mord`'s
+  `predict_proba`, reindexed onto the full 0..5 band range since a fold's
+  `classes_` can in principle omit a band never seen in that fold's training
+  set) and a 90% prediction interval (`_central_interval` — smallest
+  contiguous band range whose cumulative probability covers ≥90%, rounding
+  outward so the interval never claims more confidence than the model
+  actually has). Point estimates are kept; this is in addition.
+  `validation.build_master_table` adds `confident_divergence` — true only
+  when a country is flagged by *both* the existing >2-notch point-estimate
+  agreement *and* the actual rating falls outside the ordered logit's own
+  90% interval. Result, and the reason this was worth building: of the 11
+  countries flagged by point estimates, only **1** — Sri Lanka — also clears
+  this bar. Calibration check on the full sample: the actual band falls
+  inside the model's own 90% interval 98% of the time (vs. a target of 90%),
+  meaning the model is *underconfident* — most of its intervals are wide
+  enough to rarely be wrong, which also makes them rarely informative. Sri
+  Lanka is the one country where the model is genuinely, narrowly confident
+  and still misses, which is a much stronger and more specific claim than
+  "11 countries diverge" — and it's the same country flagged independently
+  by the data-vintage check above. Three independent angles (point-estimate
+  divergence, data staleness, predictive-interval miss) now converge on the
+  same single name; nothing converges this strongly on any other country.
+  Surfaced in `cli.py phase3`/`phase4` output and the dashboard (a
+  "Confident?" column, a calibration stat card, and a per-country predicted-
+  probability bar chart with the 90% interval shaded and the actual outcome
+  outlined).
 - **Never silently drop a country.** Coverage gaps cluster in the distressed
   names — report them, impute transparently within pillar, document every
   imputed cell. `features.pillar_scores` returns a missing-count matrix

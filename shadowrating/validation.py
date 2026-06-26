@@ -40,6 +40,16 @@ def build_master_table(scorecard_table: pd.DataFrame, band_table: pd.DataFrame,
     out["model_b_band_true"] = band_table["band_true"].reindex(out.index)
     out["model_b_band_divergence"] = out["model_b_band_pred"] - out["model_b_band_true"]
 
+    # Uncertainty, not just a point estimate: the ordered logit's own 90%
+    # prediction interval (model_b.fit_ordered_logit_loocv). A country is
+    # only "confidently divergent" by this measure if its actual band falls
+    # *outside* the model's own stated uncertainty -- stricter than, and a
+    # check on, the fixed->2-notch point-estimate flag below. Point estimates
+    # are kept (model_b_band_pred above), this is in addition, not instead.
+    out["band_ci_lower"] = band_table["band_ci_lower"].reindex(out.index)
+    out["band_ci_upper"] = band_table["band_ci_upper"].reindex(out.index)
+    out["outside_ci"] = band_table["outside_ci"].reindex(out.index)
+
     # Agreement: both models' notch-scale divergences are material (>2
     # notches -- roughly "at least one broad letter category") and point the
     # same direction. >0.5 would flag most of the sample and dilute the
@@ -49,6 +59,13 @@ def build_master_table(scorecard_table: pd.DataFrame, band_table: pd.DataFrame,
     out["models_agree_direction"] = (
         (a.abs() > 2) & (b.abs() > 2) & (((a > 0) & (b > 0)) | ((a < 0) & (b < 0)))
     )
+
+    # The strongest version of the signal: both point-estimate models agree
+    # AND the ordered logit's own uncertainty says the actual rating is
+    # outside its 90% interval -- not just "the point guess differs," but
+    # "the model is confident the agencies are wrong," corroborated by a
+    # second, differently-built model's point estimate too.
+    out["confident_divergence"] = out["models_agree_direction"] & out["outside_ci"].fillna(False)
 
     out["max_abs_divergence"] = out[["model_a_divergence", "model_b_gbm_divergence"]].abs().max(axis=1)
     return out

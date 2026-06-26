@@ -17,12 +17,27 @@
    "institutional": 0.702,
    "monetary": 0.542
   },
-  "model_a_pred_notch": 11.746,
-  "model_a_divergence": -8.3,
-  "model_b_gbm_pred_notch": 16.998,
-  "model_b_gbm_divergence": -3.0,
+  "model_a_pred_notch": 11.53,
+  "model_a_divergence": -8.5,
+  "model_b_gbm_pred_notch": 17.082,
+  "model_b_gbm_divergence": -2.9,
   "model_b_band_pred": 4.0,
-  "models_agree_direction": true
+  "band_ci_lower": 1.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.019,
+   0.035,
+   0.063,
+   0.191,
+   0.303,
+   0.39
+  ],
+  "outside_ci": false,
+  "models_agree_direction": true,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "DEU",
@@ -42,12 +57,27 @@
    "institutional": 0.857,
    "monetary": 0.732
   },
-  "model_a_pred_notch": 16.568,
-  "model_a_divergence": -4.4,
-  "model_b_gbm_pred_notch": 19.252,
-  "model_b_gbm_divergence": -1.7,
+  "model_a_pred_notch": 16.381,
+  "model_a_divergence": -4.6,
+  "model_b_gbm_pred_notch": 18.919,
+  "model_b_gbm_divergence": -2.1,
   "model_b_band_pred": 5.0,
-  "models_agree_direction": false
+  "band_ci_lower": 2.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.01,
+   0.019,
+   0.036,
+   0.122,
+   0.258,
+   0.556
+  ],
+  "outside_ci": false,
+  "models_agree_direction": true,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "NLD",
@@ -67,12 +97,27 @@
    "institutional": 0.913,
    "monetary": 0.565
   },
-  "model_a_pred_notch": 17.528,
-  "model_a_divergence": -3.5,
-  "model_b_gbm_pred_notch": 19.166,
-  "model_b_gbm_divergence": -1.8,
+  "model_a_pred_notch": 17.346,
+  "model_a_divergence": -3.7,
+  "model_b_gbm_pred_notch": 19.449,
+  "model_b_gbm_divergence": -1.6,
   "model_b_band_pred": 5.0,
-  "models_agree_direction": false
+  "band_ci_lower": 2.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.011,
+   0.021,
+   0.04,
+   0.135,
+   0.27,
+   0.523
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "CAN",
@@ -92,12 +137,27 @@
    "institutional": 0.873,
    "monetary": 0.744
   },
-  "model_a_pred_notch": 15.61,
-  "model_a_divergence": -5.4,
-  "model_b_gbm_pred_notch": 19.187,
-  "model_b_gbm_divergence": -1.8,
+  "model_a_pred_notch": 15.421,
+  "model_a_divergence": -5.6,
+  "model_b_gbm_pred_notch": 19.012,
+  "model_b_gbm_divergence": -2.0,
   "model_b_band_pred": 5.0,
-  "models_agree_direction": false
+  "band_ci_lower": 2.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.008,
+   0.016,
+   0.03,
+   0.106,
+   0.238,
+   0.602
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "AUS",
@@ -117,12 +177,27 @@
    "institutional": 0.929,
    "monetary": 0.435
   },
-  "model_a_pred_notch": 16.244,
-  "model_a_divergence": -4.8,
-  "model_b_gbm_pred_notch": 18.489,
-  "model_b_gbm_divergence": -2.5,
-  "model_b_band_pred": 5.0,
-  "models_agree_direction": true
+  "model_a_pred_notch": 16.054,
+  "model_a_divergence": -4.9,
+  "model_b_gbm_pred_notch": 18.811,
+  "model_b_gbm_divergence": -2.2,
+  "model_b_band_pred": 4.0,
+  "band_ci_lower": 2.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.012,
+   0.023,
+   0.043,
+   0.144,
+   0.279,
+   0.499
+  ],
+  "outside_ci": false,
+  "models_agree_direction": true,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "SWE",
@@ -142,12 +217,27 @@
    "institutional": 0.948,
    "monetary": 0.738
   },
-  "model_a_pred_notch": 18.902,
-  "model_a_divergence": -2.1,
-  "model_b_gbm_pred_notch": 18.985,
-  "model_b_gbm_divergence": -2.0,
+  "model_a_pred_notch": 18.713,
+  "model_a_divergence": -2.3,
+  "model_b_gbm_pred_notch": 19.371,
+  "model_b_gbm_divergence": -1.6,
   "model_b_band_pred": 5.0,
-  "models_agree_direction": false
+  "band_ci_lower": 3.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.007,
+   0.014,
+   0.027,
+   0.098,
+   0.228,
+   0.626
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "CHE",
@@ -169,10 +259,25 @@
   },
   "model_a_pred_notch": 21.0,
   "model_a_divergence": 0.0,
-  "model_b_gbm_pred_notch": 19.24,
-  "model_b_gbm_divergence": -1.8,
+  "model_b_gbm_pred_notch": 19.562,
+  "model_b_gbm_divergence": -1.4,
   "model_b_band_pred": 5.0,
-  "models_agree_direction": false
+  "band_ci_lower": 3.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.005,
+   0.01,
+   0.019,
+   0.07,
+   0.182,
+   0.714
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "GBR",
@@ -192,12 +297,27 @@
    "institutional": 0.81,
    "monetary": 0.494
   },
-  "model_a_pred_notch": 12.486,
-  "model_a_divergence": -5.5,
-  "model_b_gbm_pred_notch": 19.381,
+  "model_a_pred_notch": 12.266,
+  "model_a_divergence": -5.7,
+  "model_b_gbm_pred_notch": 19.402,
   "model_b_gbm_divergence": 1.4,
   "model_b_band_pred": 4.0,
-  "models_agree_direction": false
+  "band_ci_lower": 1.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.019,
+   0.035,
+   0.063,
+   0.191,
+   0.302,
+   0.391
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "FRA",
@@ -217,12 +337,27 @@
    "institutional": 0.698,
    "monetary": 0.845
   },
-  "model_a_pred_notch": 13.88,
-  "model_a_divergence": -3.1,
-  "model_b_gbm_pred_notch": 16.374,
-  "model_b_gbm_divergence": -0.6,
+  "model_a_pred_notch": 13.67,
+  "model_a_divergence": -3.3,
+  "model_b_gbm_pred_notch": 16.543,
+  "model_b_gbm_divergence": -0.5,
   "model_b_band_pred": 5.0,
-  "models_agree_direction": false
+  "band_ci_lower": 2.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.014,
+   0.026,
+   0.049,
+   0.16,
+   0.247,
+   0.505
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "JPN",
@@ -242,12 +377,27 @@
    "institutional": 0.873,
    "monetary": 0.75
   },
-  "model_a_pred_notch": 17.336,
-  "model_a_divergence": 0.3,
-  "model_b_gbm_pred_notch": 19.197,
+  "model_a_pred_notch": 17.116,
+  "model_a_divergence": 0.1,
+  "model_b_gbm_pred_notch": 19.207,
   "model_b_gbm_divergence": 2.2,
   "model_b_band_pred": 5.0,
-  "models_agree_direction": false
+  "band_ci_lower": 2.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.009,
+   0.018,
+   0.034,
+   0.12,
+   0.216,
+   0.602
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "KOR",
@@ -267,12 +417,27 @@
    "institutional": 0.754,
    "monetary": 0.756
   },
-  "model_a_pred_notch": 19.976,
-  "model_a_divergence": 1.0,
-  "model_b_gbm_pred_notch": 19.389,
-  "model_b_gbm_divergence": 0.4,
+  "model_a_pred_notch": 19.781,
+  "model_a_divergence": 0.8,
+  "model_b_gbm_pred_notch": 19.236,
+  "model_b_gbm_divergence": 0.2,
   "model_b_band_pred": 4.0,
-  "models_agree_direction": false
+  "band_ci_lower": 2.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.015,
+   0.03,
+   0.054,
+   0.17,
+   0.293,
+   0.438
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "BEL",
@@ -292,12 +457,27 @@
    "institutional": 0.782,
    "monetary": 0.595
   },
-  "model_a_pred_notch": 11.228,
-  "model_a_divergence": -6.8,
-  "model_b_gbm_pred_notch": 16.013,
-  "model_b_gbm_divergence": -2.0,
+  "model_a_pred_notch": 10.999,
+  "model_a_divergence": -7.0,
+  "model_b_gbm_pred_notch": 15.844,
+  "model_b_gbm_divergence": -2.2,
   "model_b_band_pred": 4.0,
-  "models_agree_direction": false
+  "band_ci_lower": 1.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.018,
+   0.034,
+   0.061,
+   0.187,
+   0.3,
+   0.399
+  ],
+  "outside_ci": false,
+  "models_agree_direction": true,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "CZE",
@@ -317,12 +497,27 @@
    "institutional": 0.786,
    "monetary": 0.738
   },
-  "model_a_pred_notch": 17.884,
-  "model_a_divergence": -0.1,
-  "model_b_gbm_pred_notch": 19.177,
-  "model_b_gbm_divergence": 1.2,
+  "model_a_pred_notch": 17.702,
+  "model_a_divergence": -0.3,
+  "model_b_gbm_pred_notch": 16.97,
+  "model_b_gbm_divergence": -1.0,
   "model_b_band_pred": 4.0,
-  "models_agree_direction": false
+  "band_ci_lower": 2.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.016,
+   0.03,
+   0.055,
+   0.171,
+   0.294,
+   0.435
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "CHL",
@@ -342,12 +537,27 @@
    "institutional": 0.671,
    "monetary": 0.5
   },
-  "model_a_pred_notch": 14.986,
-  "model_a_divergence": -1.0,
-  "model_b_gbm_pred_notch": 16.106,
-  "model_b_gbm_divergence": 0.1,
+  "model_a_pred_notch": 14.784,
+  "model_a_divergence": -1.2,
+  "model_b_gbm_pred_notch": 15.706,
+  "model_b_gbm_divergence": -0.3,
   "model_b_band_pred": 4.0,
-  "models_agree_direction": false
+  "band_ci_lower": 1.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.034,
+   0.062,
+   0.103,
+   0.257,
+   0.256,
+   0.287
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "SAU",
@@ -367,12 +577,27 @@
    "institutional": 0.492,
    "monetary": 0.833
   },
-  "model_a_pred_notch": 16.471,
-  "model_a_divergence": -0.5,
-  "model_b_gbm_pred_notch": 12.991,
+  "model_a_pred_notch": 16.276,
+  "model_a_divergence": -0.7,
+  "model_b_gbm_pred_notch": 13.025,
   "model_b_gbm_divergence": -4.0,
   "model_b_band_pred": 4.0,
-  "models_agree_direction": false
+  "band_ci_lower": 1.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.034,
+   0.061,
+   0.102,
+   0.257,
+   0.258,
+   0.288
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "CHN",
@@ -392,12 +617,27 @@
    "institutional": 0.361,
    "monetary": 0.946
   },
-  "model_a_pred_notch": 15.046,
-  "model_a_divergence": -2.0,
-  "model_b_gbm_pred_notch": 12.414,
-  "model_b_gbm_divergence": -4.6,
-  "model_b_band_pred": 4.0,
-  "models_agree_direction": false
+  "model_a_pred_notch": 14.826,
+  "model_a_divergence": -2.2,
+  "model_b_gbm_pred_notch": 10.133,
+  "model_b_gbm_divergence": -6.9,
+  "model_b_band_pred": 3.0,
+  "band_ci_lower": 1.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.04,
+   0.072,
+   0.116,
+   0.273,
+   0.249,
+   0.25
+  ],
+  "outside_ci": false,
+  "models_agree_direction": true,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "POL",
@@ -417,12 +657,27 @@
    "institutional": 0.631,
    "monetary": 0.44
   },
-  "model_a_pred_notch": 12.877,
-  "model_a_divergence": -2.1,
-  "model_b_gbm_pred_notch": 15.832,
+  "model_a_pred_notch": 12.659,
+  "model_a_divergence": -2.3,
+  "model_b_gbm_pred_notch": 15.752,
   "model_b_gbm_divergence": 0.8,
   "model_b_band_pred": 4.0,
-  "models_agree_direction": false
+  "band_ci_lower": 1.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.034,
+   0.062,
+   0.103,
+   0.256,
+   0.256,
+   0.289
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "ITA",
@@ -442,12 +697,27 @@
    "institutional": 0.635,
    "monetary": 0.821
   },
-  "model_a_pred_notch": 15.381,
-  "model_a_divergence": 1.4,
-  "model_b_gbm_pred_notch": 15.038,
-  "model_b_gbm_divergence": 1.0,
+  "model_a_pred_notch": 15.166,
+  "model_a_divergence": 1.2,
+  "model_b_gbm_pred_notch": 14.079,
+  "model_b_gbm_divergence": 0.1,
   "model_b_band_pred": 4.0,
-  "models_agree_direction": false
+  "band_ci_lower": 1.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.022,
+   0.041,
+   0.074,
+   0.18,
+   0.3,
+   0.384
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "ESP",
@@ -467,12 +737,27 @@
    "institutional": 0.635,
    "monetary": 0.601
   },
-  "model_a_pred_notch": 17.038,
-  "model_a_divergence": 1.0,
-  "model_b_gbm_pred_notch": 16.616,
-  "model_b_gbm_divergence": 0.6,
+  "model_a_pred_notch": 16.845,
+  "model_a_divergence": 0.8,
+  "model_b_gbm_pred_notch": 15.543,
+  "model_b_gbm_divergence": -0.5,
   "model_b_band_pred": 4.0,
-  "models_agree_direction": false
+  "band_ci_lower": 1.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.027,
+   0.05,
+   0.086,
+   0.233,
+   0.264,
+   0.339
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "PRT",
@@ -492,12 +777,27 @@
    "institutional": 0.726,
    "monetary": 0.631
   },
-  "model_a_pred_notch": 17.114,
-  "model_a_divergence": 1.1,
-  "model_b_gbm_pred_notch": 17.779,
-  "model_b_gbm_divergence": 1.8,
+  "model_a_pred_notch": 16.91,
+  "model_a_divergence": 0.9,
+  "model_b_gbm_pred_notch": 17.114,
+  "model_b_gbm_divergence": 1.1,
   "model_b_band_pred": 4.0,
-  "models_agree_direction": false
+  "band_ci_lower": 1.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.024,
+   0.044,
+   0.077,
+   0.219,
+   0.265,
+   0.372
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "MEX",
@@ -517,12 +817,27 @@
    "institutional": 0.19,
    "monetary": 0.339
   },
-  "model_a_pred_notch": 10.579,
-  "model_a_divergence": -2.4,
-  "model_b_gbm_pred_notch": 7.87,
-  "model_b_gbm_divergence": -5.1,
+  "model_a_pred_notch": 10.364,
+  "model_a_divergence": -2.6,
+  "model_b_gbm_pred_notch": 7.96,
+  "model_b_gbm_divergence": -5.0,
   "model_b_band_pred": 1.0,
-  "models_agree_direction": true
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 4.0,
+  "band_proba": [
+   0.287,
+   0.265,
+   0.193,
+   0.151,
+   0.072,
+   0.033
+  ],
+  "outside_ci": false,
+  "models_agree_direction": true,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "IDN",
@@ -542,12 +857,27 @@
    "institutional": 0.349,
    "monetary": 0.696
   },
-  "model_a_pred_notch": 16.792,
-  "model_a_divergence": 3.8,
-  "model_b_gbm_pred_notch": 14.597,
-  "model_b_gbm_divergence": 1.6,
+  "model_a_pred_notch": 16.596,
+  "model_a_divergence": 3.6,
+  "model_b_gbm_pred_notch": 14.473,
+  "model_b_gbm_divergence": 1.5,
   "model_b_band_pred": 3.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.072,
+   0.118,
+   0.166,
+   0.263,
+   0.23,
+   0.151
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "IND",
@@ -567,12 +897,27 @@
    "institutional": 0.357,
    "monetary": 0.274
   },
-  "model_a_pred_notch": 11.702,
-  "model_a_divergence": -0.3,
-  "model_b_gbm_pred_notch": 11.601,
+  "model_a_pred_notch": 11.497,
+  "model_a_divergence": -0.5,
+  "model_b_gbm_pred_notch": 11.572,
   "model_b_gbm_divergence": -0.4,
   "model_b_band_pred": 3.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.116,
+   0.167,
+   0.198,
+   0.249,
+   0.173,
+   0.098
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "PHL",
@@ -592,12 +937,27 @@
    "institutional": 0.274,
    "monetary": 0.405
   },
-  "model_a_pred_notch": 11.984,
-  "model_a_divergence": -1.0,
-  "model_b_gbm_pred_notch": 11.466,
-  "model_b_gbm_divergence": -1.5,
+  "model_a_pred_notch": 11.761,
+  "model_a_divergence": -1.2,
+  "model_b_gbm_pred_notch": 11.75,
+  "model_b_gbm_divergence": -1.2,
   "model_b_band_pred": 2.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.166,
+   0.21,
+   0.211,
+   0.219,
+   0.128,
+   0.065
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "HUN",
@@ -617,12 +977,27 @@
    "institutional": 0.536,
    "monetary": 0.429
   },
-  "model_a_pred_notch": 10.013,
-  "model_a_divergence": -2.0,
-  "model_b_gbm_pred_notch": 13.684,
+  "model_a_pred_notch": 9.776,
+  "model_a_divergence": -2.2,
+  "model_b_gbm_pred_notch": 13.733,
   "model_b_gbm_divergence": 1.7,
   "model_b_band_pred": 3.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.076,
+   0.122,
+   0.168,
+   0.26,
+   0.224,
+   0.148
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "ROU",
@@ -642,12 +1017,27 @@
    "institutional": 0.548,
    "monetary": 0.19
   },
-  "model_a_pred_notch": 6.943,
-  "model_a_divergence": -5.1,
-  "model_b_gbm_pred_notch": 9.597,
-  "model_b_gbm_divergence": -2.4,
+  "model_a_pred_notch": 6.774,
+  "model_a_divergence": -5.2,
+  "model_b_gbm_pred_notch": 9.35,
+  "model_b_gbm_divergence": -2.6,
   "model_b_band_pred": 3.0,
-  "models_agree_direction": true
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.103,
+   0.154,
+   0.191,
+   0.254,
+   0.187,
+   0.111
+  ],
+  "outside_ci": false,
+  "models_agree_direction": true,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "BRA",
@@ -667,12 +1057,27 @@
    "institutional": 0.306,
    "monetary": 0.339
   },
-  "model_a_pred_notch": 9.945,
-  "model_a_divergence": -0.1,
-  "model_b_gbm_pred_notch": 10.191,
+  "model_a_pred_notch": 9.739,
+  "model_a_divergence": -0.3,
+  "model_b_gbm_pred_notch": 10.168,
   "model_b_gbm_divergence": 0.2,
   "model_b_band_pred": 2.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.157,
+   0.203,
+   0.169,
+   0.264,
+   0.136,
+   0.071
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "ZAF",
@@ -692,12 +1097,27 @@
    "institutional": 0.377,
    "monetary": 0.375
   },
-  "model_a_pred_notch": 9.664,
-  "model_a_divergence": -0.3,
-  "model_b_gbm_pred_notch": 10.935,
-  "model_b_gbm_divergence": 0.9,
+  "model_a_pred_notch": 9.441,
+  "model_a_divergence": -0.6,
+  "model_b_gbm_pred_notch": 10.778,
+  "model_b_gbm_divergence": 0.8,
   "model_b_band_pred": 2.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.168,
+   0.211,
+   0.17,
+   0.256,
+   0.128,
+   0.067
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "COL",
@@ -717,12 +1137,27 @@
    "institutional": 0.317,
    "monetary": 0.208
   },
-  "model_a_pred_notch": 9.003,
-  "model_a_divergence": -2.0,
-  "model_b_gbm_pred_notch": 5.894,
-  "model_b_gbm_divergence": -5.1,
+  "model_a_pred_notch": 8.777,
+  "model_a_divergence": -2.2,
+  "model_b_gbm_pred_notch": 5.434,
+  "model_b_gbm_divergence": -5.6,
   "model_b_band_pred": 2.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.205,
+   0.233,
+   0.171,
+   0.232,
+   0.106,
+   0.053
+  ],
+  "outside_ci": false,
+  "models_agree_direction": true,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "GRC",
@@ -742,12 +1177,27 @@
    "institutional": 0.56,
    "monetary": 0.548
   },
-  "model_a_pred_notch": 12.21,
-  "model_a_divergence": -0.8,
-  "model_b_gbm_pred_notch": 13.601,
-  "model_b_gbm_divergence": 0.6,
+  "model_a_pred_notch": 12.008,
+  "model_a_divergence": -1.0,
+  "model_b_gbm_pred_notch": 13.727,
+  "model_b_gbm_divergence": 0.7,
   "model_b_band_pred": 3.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.053,
+   0.091,
+   0.139,
+   0.252,
+   0.263,
+   0.203
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "TUR",
@@ -767,12 +1217,27 @@
    "institutional": 0.194,
    "monetary": 0.024
   },
-  "model_a_pred_notch": 11.428,
-  "model_a_divergence": 2.4,
-  "model_b_gbm_pred_notch": 9.024,
-  "model_b_gbm_divergence": 0.0,
+  "model_a_pred_notch": 11.22,
+  "model_a_divergence": 2.2,
+  "model_b_gbm_pred_notch": 8.803,
+  "model_b_gbm_divergence": -0.2,
   "model_b_band_pred": 1.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 4.0,
+  "band_proba": [
+   0.358,
+   0.272,
+   0.144,
+   0.148,
+   0.054,
+   0.024
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "MAR",
@@ -792,12 +1257,27 @@
    "institutional": 0.313,
    "monetary": 0.905
   },
-  "model_a_pred_notch": 13.643,
-  "model_a_divergence": 2.6,
-  "model_b_gbm_pred_notch": 10.392,
-  "model_b_gbm_divergence": -0.6,
+  "model_a_pred_notch": 13.431,
+  "model_a_divergence": 2.4,
+  "model_b_gbm_pred_notch": 10.499,
+  "model_b_gbm_divergence": -0.5,
   "model_b_band_pred": 3.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.06,
+   0.102,
+   0.119,
+   0.298,
+   0.248,
+   0.172
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "EGY",
@@ -817,12 +1297,27 @@
    "institutional": 0.127,
    "monetary": 0.071
   },
-  "model_a_pred_notch": 7.085,
-  "model_a_divergence": 1.1,
-  "model_b_gbm_pred_notch": 5.73,
-  "model_b_gbm_divergence": -0.3,
+  "model_a_pred_notch": 6.989,
+  "model_a_divergence": 1.0,
+  "model_b_gbm_pred_notch": 6.021,
+  "model_b_gbm_divergence": 0.0,
   "model_b_band_pred": 1.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 4.0,
+  "band_proba": [
+   0.404,
+   0.224,
+   0.174,
+   0.13,
+   0.047,
+   0.021
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "NGA",
@@ -842,12 +1337,27 @@
    "institutional": 0.075,
    "monetary": 0.048
   },
-  "model_a_pred_notch": 10.744,
-  "model_a_divergence": 4.7,
-  "model_b_gbm_pred_notch": 7.177,
-  "model_b_gbm_divergence": 1.2,
+  "model_a_pred_notch": 10.562,
+  "model_a_divergence": 4.6,
+  "model_b_gbm_pred_notch": 6.919,
+  "model_b_gbm_divergence": 0.9,
   "model_b_band_pred": 0.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 3.0,
+  "band_proba": [
+   0.517,
+   0.209,
+   0.138,
+   0.092,
+   0.031,
+   0.013
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "KEN",
@@ -867,12 +1377,27 @@
    "institutional": 0.171,
    "monetary": 0.268
   },
-  "model_a_pred_notch": 8.118,
-  "model_a_divergence": 2.1,
-  "model_b_gbm_pred_notch": 10.168,
-  "model_b_gbm_divergence": 4.2,
+  "model_a_pred_notch": 7.911,
+  "model_a_divergence": 1.9,
+  "model_b_gbm_pred_notch": 8.718,
+  "model_b_gbm_divergence": 2.7,
   "model_b_band_pred": 1.0,
-  "models_agree_direction": true
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 4.0,
+  "band_proba": [
+   0.295,
+   0.216,
+   0.204,
+   0.179,
+   0.072,
+   0.034
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "PAK",
@@ -892,12 +1417,27 @@
    "institutional": 0.056,
    "monetary": 0.167
   },
-  "model_a_pred_notch": 9.653,
-  "model_a_divergence": 3.7,
-  "model_b_gbm_pred_notch": 6.362,
+  "model_a_pred_notch": 9.464,
+  "model_a_divergence": 3.5,
+  "model_b_gbm_pred_notch": 6.437,
   "model_b_gbm_divergence": 0.4,
   "model_b_band_pred": 1.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 3.0,
+  "band_proba": [
+   0.497,
+   0.213,
+   0.144,
+   0.098,
+   0.034,
+   0.015
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "AGO",
@@ -917,12 +1457,27 @@
    "institutional": 0.119,
    "monetary": 0.095
   },
-  "model_a_pred_notch": 11.57,
-  "model_a_divergence": 5.6,
-  "model_b_gbm_pred_notch": 6.306,
+  "model_a_pred_notch": 11.373,
+  "model_a_divergence": 5.4,
+  "model_b_gbm_pred_notch": 6.322,
   "model_b_gbm_divergence": 0.3,
   "model_b_band_pred": 1.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 4.0,
+  "band_proba": [
+   0.483,
+   0.215,
+   0.149,
+   0.102,
+   0.035,
+   0.015
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "ARG",
@@ -942,12 +1497,27 @@
    "institutional": 0.389,
    "monetary": 0.0
   },
-  "model_a_pred_notch": 11.903,
-  "model_a_divergence": 6.9,
-  "model_b_gbm_pred_notch": 7.002,
-  "model_b_gbm_divergence": 2.0,
+  "model_a_pred_notch": 11.711,
+  "model_a_divergence": 6.7,
+  "model_b_gbm_pred_notch": 7.222,
+  "model_b_gbm_divergence": 2.2,
   "model_b_band_pred": 2.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.171,
+   0.237,
+   0.214,
+   0.225,
+   0.103,
+   0.051
+  ],
+  "outside_ci": false,
+  "models_agree_direction": true,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "UKR",
@@ -967,12 +1537,27 @@
    "institutional": 0.214,
    "monetary": 0.202
   },
-  "model_a_pred_notch": 3.73,
+  "model_a_pred_notch": 3.713,
   "model_a_divergence": -0.3,
-  "model_b_gbm_pred_notch": 8.217,
-  "model_b_gbm_divergence": 4.2,
+  "model_b_gbm_pred_notch": 8.749,
+  "model_b_gbm_divergence": 4.7,
   "model_b_band_pred": 2.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 4.0,
+  "band_proba": [
+   0.174,
+   0.244,
+   0.216,
+   0.22,
+   0.098,
+   0.048
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "ZMB",
@@ -992,12 +1577,29 @@
    "institutional": 0.242,
    "monetary": 0.131
   },
-  "model_a_pred_notch": 8.662,
-  "model_a_divergence": 3.7,
-  "model_b_gbm_pred_notch": 6.127,
-  "model_b_gbm_divergence": 1.1,
+  "model_a_pred_notch": 8.479,
+  "model_a_divergence": 3.5,
+  "model_b_gbm_pred_notch": 5.477,
+  "model_b_gbm_divergence": 0.5,
   "model_b_band_pred": 1.0,
-  "models_agree_direction": false
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 4.0,
+  "band_proba": [
+   0.243,
+   0.276,
+   0.202,
+   0.176,
+   0.07,
+   0.033
+  ],
+  "outside_ci": false,
+  "models_agree_direction": false,
+  "confident_divergence": false,
+  "max_excess_age_years": 1.0,
+  "stale_pillars": [
+   "fiscal"
+  ],
+  "missing_share": 0.0
  },
  {
   "iso3": "GHA",
@@ -1017,12 +1619,27 @@
    "institutional": 0.433,
    "monetary": 0.19
   },
-  "model_a_pred_notch": 14.359,
-  "model_a_divergence": 9.4,
-  "model_b_gbm_pred_notch": 9.479,
-  "model_b_gbm_divergence": 4.5,
+  "model_a_pred_notch": 14.139,
+  "model_a_divergence": 9.1,
+  "model_b_gbm_pred_notch": 8.759,
+  "model_b_gbm_divergence": 3.8,
   "model_b_band_pred": 3.0,
-  "models_agree_direction": true
+  "band_ci_lower": 0.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.102,
+   0.173,
+   0.202,
+   0.28,
+   0.158,
+   0.085
+  ],
+  "outside_ci": false,
+  "models_agree_direction": true,
+  "confident_divergence": false,
+  "max_excess_age_years": 0.0,
+  "stale_pillars": [],
+  "missing_share": 0.0
  },
  {
   "iso3": "LKA",
@@ -1042,11 +1659,31 @@
    "institutional": 0.294,
    "monetary": 0.958
   },
-  "model_a_pred_notch": 14.863,
-  "model_a_divergence": 9.9,
-  "model_b_gbm_pred_notch": 13.166,
-  "model_b_gbm_divergence": 8.2,
+  "model_a_pred_notch": 14.64,
+  "model_a_divergence": 9.6,
+  "model_b_gbm_pred_notch": 13.062,
+  "model_b_gbm_divergence": 8.1,
   "model_b_band_pred": 4.0,
-  "models_agree_direction": true
+  "band_ci_lower": 1.0,
+  "band_ci_upper": 5.0,
+  "band_proba": [
+   0.028,
+   0.062,
+   0.111,
+   0.285,
+   0.287,
+   0.226
+  ],
+  "outside_ci": true,
+  "models_agree_direction": true,
+  "confident_divergence": true,
+  "max_excess_age_years": 2.0,
+  "stale_pillars": [
+   "economic",
+   "external",
+   "fiscal",
+   "monetary"
+  ],
+  "missing_share": 0.0
  }
 ]

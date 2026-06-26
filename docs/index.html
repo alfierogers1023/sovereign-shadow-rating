@@ -42,6 +42,8 @@
           <th data-key="model_b_gbm_pred_notch">Model B pred</th>
           <th data-key="model_b_gbm_divergence">Model B Δ</th>
           <th data-key="models_agree_direction">Agree</th>
+          <th data-key="confident_divergence" title="The ordered logit's own 90% prediction interval doesn't contain the actual band -- not just a different point guess, but the model confidently disagreeing with the agencies.">Confident?</th>
+          <th data-key="max_excess_age_years" title="Years older this country's most unusual indicator is vs. the sample norm for that indicator -- not raw age, which mostly reflects each source's universal publication lag. &gt;0 means signal vs. artefact deserves a closer look.">Stale?</th>
         </tr>
       </thead>
       <tbody id="country-tbody"></tbody>
@@ -52,6 +54,7 @@
 <section id="detail">
   <h2>Country detail</h2>
   <div id="detail-empty">Select a country in the table above.</div>
+  <div id="detail-quality" style="display:none"></div>
   <div class="charts-grid" id="detail-charts" style="display:none">
     <div class="chart-box">
       <h3 id="detail-title">Pillar scores</h3>
@@ -60,6 +63,12 @@
     <div class="chart-box">
       <h3>Rating comparison (notch, 1=D .. 21=AAA)</h3>
       <canvas id="chart-notch"></canvas>
+    </div>
+    <div class="chart-box">
+      <h3>Ordered logit's predicted band probabilities
+        <span class="note">(90% interval shaded -- a wide shaded range means the model is
+        honestly unsure, not wrong)</span></h3>
+      <canvas id="chart-proba"></canvas>
     </div>
     <div class="chart-box" style="grid-column: 1 / -1">
       <h3>DSA debt/GDP projection &mdash; baseline, stress scenarios, Monte Carlo fan

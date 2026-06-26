@@ -29,33 +29,34 @@ def _fetch(indicators: dict[str, dict], db: int) -> pd.DataFrame:
 
     # mrnev=1 -> most recent non-empty value per series/economy.
     # If a fixed vintage is requested, ask for that single year instead.
-    kwargs = dict(db=db, labels=False, skipBlanks=True, columns="series")
+    kwargs = dict(db=db, skipBlanks=True)
     if config.VINTAGE_YEAR is None:
         kwargs["mrnev"] = 1
     else:
         kwargs["time"] = [config.VINTAGE_YEAR]
 
+    # Deliberately wb.data.fetch(), not wb.data.DataFrame(): DataFrame()
+    # silently drops the vintage year when mrnev is used (confirmed by
+    # inspecting both), which would make every WDI/WGI cell's actual age
+    # unknowable -- exactly the data-quality question Phase 4's divergence
+    # table needs to answer. fetch() returns it as a 'YR<year>' string on
+    # every record regardless of mrnev/pinned-vintage mode.
     try:
-        raw = wb.data.DataFrame(codes, economies, **kwargs)
+        rows = list(wb.data.fetch(codes, economies, **kwargs))
     except Exception as e:  # noqa: BLE001 -- surface any network/API failure clearly
         raise RuntimeError(
             f"World Bank API call failed (db={db}). Check connectivity to "
             f"api.worldbank.org. Underlying error: {e}"
         ) from e
 
-    # wb returns a wide frame indexed by (economy[, time]); normalise to tidy long.
-    raw = raw.reset_index()
-    id_vars = [c for c in ("economy", "time") for _ in [0] if c in raw.columns]
-    long = raw.melt(id_vars=id_vars, var_name="indicator", value_name="value")
-    long = long.rename(columns={"economy": "iso3"})
+    if not rows:
+        return pd.DataFrame(columns=TIDY_COLS)
 
-    if "time" in long.columns:
-        long["year"] = (
-            long["time"].astype(str).str.extract(r"(\d{4})").astype("float").astype("Int64")
-        )
-        long = long.drop(columns=["time"])
-    else:
-        long["year"] = pd.NA  # mrnev path doesn't return the year per cell
+    long = pd.DataFrame(rows)
+    long = long.rename(columns={"economy": "iso3", "series": "indicator"})
+    long["year"] = (
+        long["time"].astype(str).str.extract(r"(\d{4})").astype("float").astype("Int64")
+    )
 
     # Friendly indicator names.
     name_map = {code: meta["name"] for code, meta in indicators.items()}

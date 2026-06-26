@@ -11,22 +11,45 @@ import pandas as pd
 from . import config
 
 
+def _dedup_long(*frames: pd.DataFrame) -> pd.DataFrame:
+    """Concat tidy frames and keep the latest-year observation per (iso3, indicator)."""
+    nonempty = [f for f in frames if f is not None and not f.empty]
+    if not nonempty:
+        return pd.DataFrame(columns=["iso3", "indicator", "year", "value"])
+    long = pd.concat(nonempty, ignore_index=True)
+    long = long.sort_values("year", na_position="first")
+    return long.groupby(["iso3", "indicator"], as_index=False).last()
+
+
 def assemble_panel(*frames: pd.DataFrame) -> pd.DataFrame:
     """
     Combine tidy (iso3, indicator, year, value) frames into a wide panel:
     one row per country, one column per indicator (most-recent value).
     """
-    nonempty = [f for f in frames if f is not None and not f.empty]
-    if not nonempty:
+    long = _dedup_long(*frames)
+    if long.empty:
         return pd.DataFrame(index=pd.Index(config.ISO3_LIST, name="iso3"))
-
-    long = pd.concat(nonempty, ignore_index=True)
-    # If duplicates exist (same iso3/indicator), keep the latest year.
-    long = long.sort_values("year", na_position="first")
-    long = long.groupby(["iso3", "indicator"], as_index=False).last()
 
     wide = long.pivot(index="iso3", columns="indicator", values="value")
     # Reindex to the full sample so missing countries show as all-NaN rows.
+    wide = wide.reindex(config.ISO3_LIST)
+    wide.index.name = "iso3"
+    return wide
+
+
+def assemble_vintage(*frames: pd.DataFrame) -> pd.DataFrame:
+    """
+    Same assembly as `assemble_panel`, but pivots the vintage `year` instead
+    of `value` -- one column per indicator giving the year the value actually
+    used (after taking the latest available per country/indicator) was
+    published for. Lets a reader see how stale any given country/pillar's
+    inputs are, which `assemble_panel` alone throws away.
+    """
+    long = _dedup_long(*frames)
+    if long.empty:
+        return pd.DataFrame(index=pd.Index(config.ISO3_LIST, name="iso3"))
+
+    wide = long.pivot(index="iso3", columns="indicator", values="year")
     wide = wide.reindex(config.ISO3_LIST)
     wide.index.name = "iso3"
     return wide

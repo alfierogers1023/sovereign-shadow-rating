@@ -5,11 +5,12 @@
 const PILLAR_ORDER = ["economic", "external", "fiscal", "institutional", "monetary"];
 const PILLAR_COLORS = { economic: "#5fb3ff", external: "#9b7bd6", fiscal: "#e0a85f",
                         institutional: "#4caf78", monetary: "#e0667a" };
+const BAND_LABELS = ["CCC-D", "B", "BB", "BBB", "A", "AAA/AA"];
 
 let countries = [];
 let dsa = {};
 let sortState = { key: "model_a_divergence", dir: "desc" };
-let chartPillars, chartNotch, chartDsa;
+let chartPillars, chartNotch, chartDsa, chartProba;
 
 async function main() {
   const [summary, countriesData, dsaData] = await Promise.all([
@@ -54,6 +55,11 @@ function renderSummary(summary) {
     { label: "Ordered logit exact band match", value: `${(summary.model_b_ordered_logit.exact_match_rate * 100).toFixed(0)}%` },
     { label: "Model B (GBM) LOOCV MAE", value: `${summary.model_b_gbm.mae.toFixed(2)} notches` },
     { label: "Models agree on divergence direction", value: `${summary.agreement_count} countries` },
+    { label: "Confident divergence (outside 90% CI)", value: `${summary.confident_divergence_count} ${summary.confident_divergence_count === 1 ? "country" : "countries"}` },
+    {
+      label: "90% interval calibration",
+      value: `${(summary.ci_calibration.empirical_coverage * 100).toFixed(0)}% actual coverage`,
+    },
     {
       label: "Market spread corroboration",
       value: summary.market_cross_check
@@ -104,6 +110,8 @@ function renderTable() {
       <td>${fmt(c.model_b_gbm_pred_notch)}</td>
       <td class="${divergenceClass(c.model_b_gbm_divergence)}">${fmt(c.model_b_gbm_divergence, 1)}</td>
       <td class="${c.models_agree_direction ? "agree" : ""}">${c.models_agree_direction ? "●" : ""}</td>
+      <td class="${c.confident_divergence ? "stale" : ""}">${c.confident_divergence ? "⬤" : ""}</td>
+      <td class="${c.max_excess_age_years > 0 ? "stale" : ""}">${c.max_excess_age_years > 0 ? `+${fmt(c.max_excess_age_years, 0)}y` : "—"}</td>
     </tr>
   `).join("");
 
@@ -123,9 +131,46 @@ function selectCountry(iso3) {
   document.getElementById("detail-charts").style.display = "grid";
   document.getElementById("detail-title").textContent = `Pillar scores — ${c.name}`;
 
+  renderDataQuality(c);
   renderPillarChart(c);
   renderNotchChart(c);
+  renderProbaChart(c);
   renderDsaChart(c);
+}
+
+function renderDataQuality(c) {
+  const el = document.getElementById("detail-quality");
+  el.style.display = "block";
+  const missingPct = (c.missing_share * 100).toFixed(0);
+  const parts = [];
+
+  if (c.max_excess_age_years > 0) {
+    parts.push(
+      `<strong>Data quality flag:</strong> ${c.name}'s ${c.stale_pillars.join(", ")} ` +
+      `pillar${c.stale_pillars.length > 1 ? "s are" : " is"} built on data ` +
+      `${fmt(c.max_excess_age_years, 0)} year(s) older than the sample norm for those ` +
+      `same indicators — older than every peer it's being scored against.`
+    );
+  }
+  if (c.confident_divergence) {
+    parts.push(
+      `<strong>Confident divergence:</strong> the ordered logit's own 90% interval ` +
+      `doesn't contain ${c.name}'s actual rating — not just a different point guess, ` +
+      `the model is statistically confident the agencies are wrong here.`
+    );
+  }
+  if (parts.length === 0) {
+    el.className = "ok";
+    el.innerHTML =
+      `<strong>Data quality:</strong> no indicator behind the sample norm for ${c.name} this ` +
+      `run, and any divergence here is within the model's own honest uncertainty (not a ` +
+      `confident miss). ${missingPct}% of its pillar/indicator slots were missing (excluded ` +
+      `from that pillar's average, never filled with a guessed value).`;
+  } else {
+    el.className = "warn";
+    el.innerHTML = parts.join(" ") + ` ${missingPct}% of its pillar/indicator slots were ` +
+      `missing this run.`;
+  }
 }
 
 function renderPillarChart(c) {
@@ -162,6 +207,53 @@ function renderNotchChart(c) {
       plugins: { legend: { display: false } },
     },
   });
+}
+
+function renderProbaChart(c) {
+  chartProba?.destroy();
+  if (!c.band_proba) {
+    chartProba = null;
+    return;
+  }
+  const inInterval = (i) => i >= c.band_ci_lower && i <= c.band_ci_upper;
+  const colors = BAND_LABELS.map((_, i) => (inInterval(i) ? "#5fb3ff" : "#3a3f4d"));
+  const actualIdx = BAND_LABELS.indexOf(bandLabelFromLetter(c));
+  const borderColors = BAND_LABELS.map((_, i) => (i === actualIdx ? "#e0667a" : "transparent"));
+  const borderWidths = BAND_LABELS.map((_, i) => (i === actualIdx ? 3 : 0));
+
+  chartProba = new Chart(document.getElementById("chart-proba"), {
+    type: "bar",
+    data: {
+      labels: BAND_LABELS,
+      datasets: [{ data: c.band_proba, backgroundColor: colors,
+                  borderColor: borderColors, borderWidth: borderWidths }],
+    },
+    options: {
+      scales: { y: { min: 0, max: 1, title: { display: true, text: "predicted probability" } } },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            footer: () => (c.confident_divergence
+              ? "Actual band is outside the shaded 90% interval -- a confident miss."
+              : "Shaded bars = model's own 90% interval."),
+          },
+        },
+      },
+    },
+  });
+}
+
+function bandLabelFromLetter(c) {
+  // Coarse map from the agency letter to one of the 6 bands, just for
+  // highlighting the actual outcome on the probability chart.
+  const letter = c.actual_letter || "";
+  if (/^(AAA|AA)/.test(letter)) return "AAA/AA";
+  if (/^A/.test(letter)) return "A";
+  if (/^BBB/.test(letter)) return "BBB";
+  if (/^BB/.test(letter)) return "BB";
+  if (/^B/.test(letter)) return "B";
+  return "CCC-D";
 }
 
 function renderDsaChart(c) {

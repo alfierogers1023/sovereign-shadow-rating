@@ -22,6 +22,7 @@ from . import config, ratings as ratings_mod
 from .loaders import worldbank, imf_weo, fred
 from . import coverage as coverage_mod
 from . import features as features_mod
+from . import data_quality as data_quality_mod
 from . import scorecard as scorecard_mod
 from . import model_b as model_b_mod
 from . import validation as validation_mod
@@ -57,21 +58,26 @@ def build_all(use_cache: bool = True) -> None:
     frames = [worldbank.fetch_wdi(use_cache), worldbank.fetch_wgi(use_cache),
               imf_weo.fetch_weo(use_cache)]
     panel = coverage_mod.assemble_panel(*frames)
+    vintage = coverage_mod.assemble_vintage(*frames)
     cov = coverage_mod.coverage_report(panel)
 
     feats = features_mod.build_features(panel)
     pillar_scores, composite = feats["pillar_scores"], feats["composite"]
     notch = rt_idx["consensus_notch"].astype(float).reindex(pillar_scores.index)
 
-    scorecard_table = scorecard_mod.build_scorecard(pillar_scores, composite, rt)
+    scorecard_table = scorecard_mod.build_scorecard(panel, pillar_scores, composite, rt)
     a_summary = scorecard_mod.error_summary(scorecard_table)
 
-    band_table = model_b_mod.fit_ordered_logit_loocv(pillar_scores, notch)
+    band_table = model_b_mod.fit_ordered_logit_loocv(panel, notch)
     band_summary = model_b_mod.band_error_summary(band_table)
-    gbm_preds, gbm_importance = model_b_mod.fit_gbm_loocv(pillar_scores, notch)
+    gbm_preds, gbm_importance = model_b_mod.fit_gbm_loocv(panel, notch)
     gbm_summary = model_b_mod.notch_error_summary(notch, gbm_preds)
 
     master = validation_mod.build_master_table(scorecard_table, band_table, gbm_preds, rt)
+
+    dq = data_quality_mod.build_data_quality_table(vintage, feats["missing_counts"],
+                                                    total_indicators=feats["scaled"].shape[1])
+    master = master.join(dq)
 
     yields = fred.fetch_yields(use_cache)
     cross = validation_mod.cross_check_market_spread(master, yields)
@@ -97,7 +103,16 @@ def build_all(use_cache: bool = True) -> None:
             "model_b_gbm_pred_notch": master.loc[iso3, "model_b_gbm_pred_notch"],
             "model_b_gbm_divergence": master.loc[iso3, "model_b_gbm_divergence"],
             "model_b_band_pred": band_table.loc[iso3, "band_pred"] if iso3 in band_table.index else None,
+            "band_ci_lower": master.loc[iso3, "band_ci_lower"],
+            "band_ci_upper": master.loc[iso3, "band_ci_upper"],
+            "band_proba": [band_table.loc[iso3, f"band_proba_{i}"] for i in range(model_b_mod.N_BANDS)]
+                if iso3 in band_table.index and pd.notna(band_table.loc[iso3, "band_proba_0"]) else None,
+            "outside_ci": bool(master.loc[iso3, "outside_ci"]) if pd.notna(master.loc[iso3, "outside_ci"]) else None,
             "models_agree_direction": bool(master.loc[iso3, "models_agree_direction"]),
+            "confident_divergence": bool(master.loc[iso3, "confident_divergence"]),
+            "max_excess_age_years": master.loc[iso3, "max_excess_age_years"],
+            "stale_pillars": master.loc[iso3, "stale_pillars"],
+            "missing_share": master.loc[iso3, "missing_share"],
         }
         countries.append(row)
     _write_json("countries.json", countries)
@@ -117,6 +132,16 @@ def build_all(use_cache: bool = True) -> None:
                         "bias": gbm_summary["bias"]},
         "gbm_feature_importance": gbm_importance.to_dict(),
         "agreement_count": int(master["models_agree_direction"].sum()),
+        "confident_divergence_count": int(master["confident_divergence"].sum()),
+        "ci_calibration": {
+            "target_mass": model_b_mod.CI_MASS,
+            "empirical_coverage": float(1 - band_table["outside_ci"].dropna().astype(bool).mean()),
+            "n": int(band_table["outside_ci"].notna().sum()),
+        },
+        "data_quality": {
+            "countries_with_stale_outlier": int((master["max_excess_age_years"] > 0).sum()),
+            "mean_missing_share": float(master["missing_share"].mean()),
+        },
         "market_cross_check": (
             {"n": len(cross), "corroborated": int(cross["model_a_corroborated"].sum())}
             if cross is not None else None
