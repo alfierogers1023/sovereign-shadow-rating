@@ -19,8 +19,7 @@
   <p class="note">Every number below is leave-one-country-out (LOOCV), never in-sample fit.
      Pillar scaling is percentile rank within this 42-country sample &mdash; it will not transfer
      to a country outside the sample without recalibration. Don't expect either model to beat the
-     agencies on accuracy; ratings are slow and through-the-cycle by design. See
-     <code>CLAUDE.md</code> in the repo for full methodology and caveats.</p>
+     agencies on accuracy; ratings are slow and through-the-cycle by design.</p>
 </header>
 
 <section id="summary">
@@ -73,7 +72,8 @@
     <div class="chart-box" style="grid-column: 1 / -1">
       <h3>DSA debt/GDP projection &mdash; baseline, stress scenarios, Monte Carlo fan
         <span class="note">(illustrative shock sizes, not estimated from this country's own
-        historical volatility &mdash; see CLAUDE.md)</span></h3>
+        historical volatility &mdash; only one WEO vintage per indicator is available, not a
+        time series)</span></h3>
       <canvas id="chart-dsa"></canvas>
     </div>
   </div>

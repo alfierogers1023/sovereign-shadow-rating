@@ -1,9 +1,9 @@
 """
 Phase 1: scale the indicator panel and aggregate into pillar features.
 
-Scaling = signed percentile rank (decision in CLAUDE.md -- more robust to this
-data's fat tails than raw z-scores). Direction-adjusted so higher always means
-"more creditworthy" after scaling, regardless of the indicator's raw sign.
+Scaling = signed percentile rank -- more robust to this data's fat tails than
+raw z-scores. Direction-adjusted so higher always means "more creditworthy"
+after scaling, regardless of the indicator's raw sign.
 
 Scaling is sample-relative: ranks are computed against whichever countries are
 in the panel for this run. They will not transfer to a country outside the
@@ -13,14 +13,14 @@ limitation, not a bug.
 `loocv_folds` below exists for a related but distinct reason: scaling against
 the *full* panel (as `build_features` does) means a held-out country's
 percentile rank is computed using a distribution that includes itself, which
-leaks (mild, X-only, not target leakage, but real and measured -- see
-CLAUDE.md) feature-engineering information into Phase 2/3's LOOCV. The
-properly fold-wise version recomputes the scaler on the 41 training countries
-only, then ranks the held-out country's raw values against that training
-distribution alone. `build_features` is still what every "descriptive" use of
-pillar scores should call (e.g. the dashboard's pillar bar chart for a single
-country) -- it's `scorecard.py` and `model_b.py`'s LOOCV that need the
-fold-wise version.
+leaks (mild, X-only, not target leakage, but real and measured -- mean 3.2pp,
+max 4.7pp shift per indicator across all 42 countries) feature-engineering
+information into Phase 2/3's LOOCV. The properly fold-wise version recomputes
+the scaler on the 41 training countries only, then ranks the held-out
+country's raw values against that training distribution alone. `build_features`
+is still what every "descriptive" use of pillar scores should call (e.g. the
+dashboard's pillar bar chart for a single country) -- it's `scorecard.py` and
+`model_b.py`'s LOOCV that need the fold-wise version.
 """
 from __future__ import annotations
 
@@ -62,9 +62,8 @@ def pillar_scores(scaled: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, lis
     Returns (scores, missing_counts, empty_pillars):
       - scores: country x pillar, mean of available scaled indicators. A
         country missing some (but not all) of a pillar's indicators gets the
-        mean of whatever it has -- this is the "impute transparently within
-        pillar" rule from CLAUDE.md, made explicit via missing_counts rather
-        than silently zero-filling.
+        mean of whatever it has -- imputed transparently within the pillar,
+        made explicit via missing_counts rather than silently zero-filling.
       - missing_counts: country x pillar, how many of that pillar's indicators
         were absent and excluded from the average.
       - empty_pillars: pillars with zero indicators anywhere in this panel

@@ -3,11 +3,10 @@ Phase 4: validation -- combine Model A and Model B into one master divergence
 table, and cross-check against market-implied risk (FRED bond-yield spreads)
 where that data is available.
 
-This is the analytical payload the whole project is built around (see
-CLAUDE.md principle 1): not "is the model accurate" but "where do the model(s)
-and the agencies disagree, and is there independent evidence (the market)
-that the model is onto something." Everything here is LOOCV / out-of-sample --
-never in-sample fit.
+This is the analytical payload the whole project is built around: not "is the
+model accurate" but "where do the model(s) and the agencies disagree, and is
+there independent evidence (the market) that the model is onto something."
+Everything here is LOOCV / out-of-sample -- never in-sample fit.
 """
 from __future__ import annotations
 

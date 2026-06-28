@@ -302,7 +302,7 @@ def cmd_phase4(args) -> None:
           "(max_excess_age_years = how many years older this country's most unusual "
           "indicator is vs. the sample norm for that indicator -- not raw age, which "
           "mostly reflects each source's universal lag, not a country-specific problem. "
-          "missing_share lets you judge signal vs. artefact further -- see CLAUDE.md):")
+          "missing_share lets you judge signal vs. artefact further):")
     print(master.sort_values("max_abs_divergence", ascending=False)[cols].round(2).to_string())
 
     agree = master[master["models_agree_direction"]]

@@ -11,18 +11,17 @@ b*composite). That is a unit conversion, not a learned weighting model --
 the pillar weights themselves stay fixed and config-driven. Model B (Phase 3)
 is where an actual statistical model (ordered logit) gets to choose weights.
 
-Per CLAUDE.md principle 1, the headline number is the leave-one-country-out
-(LOOCV) error, not the in-sample fit -- refitting the line on 41 countries and
-predicting the 42nd is cheap and removes the "fit the line to the same points
-you're scoring it against" bias.
+Validate against the real world, always: the headline number is the
+leave-one-country-out (LOOCV) error, not the in-sample fit -- refitting the
+line on 41 countries and predicting the 42nd is cheap and removes the "fit
+the line to the same points you're scoring it against" bias.
 
 LOOCV here goes one level deeper than just refitting the calibration line:
 `loocv_predict` takes the *raw panel*, not a precomputed composite, and uses
 `features.loocv_folds` to rebuild the percentile-rank scaling itself on the
 41 training countries each fold. Calibrating against a composite that was
 scaled using the full 42-country sample (including the held-out point) would
-leak feature-engineering information into a number we report as out-of-sample
--- see CLAUDE.md's validation-integrity note.
+leak feature-engineering information into a number we report as out-of-sample.
 """
 from __future__ import annotations
 

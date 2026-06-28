@@ -6,8 +6,8 @@ out-of-sample (LOOCV) -- N~42 punishes anything more ambitious.
 1. Ordered logit (mord.LogisticAT) on the 6-band rating scale
    (ratings.RATING_BANDS), not the full 21-notch scale -- fitting 20 cut
    points from 42 points isn't honest, fitting 5 is defensible. This is the
-   headline model per CLAUDE.md: transparent, monotonic, lets the data choose
-   pillar weights (vs. Model A's fixed ones).
+   headline model: transparent, monotonic, lets the data choose pillar
+   weights (vs. Model A's fixed ones).
 2. Gradient boosting (XGBRegressor, shallow trees) on the continuous notch
    scale, for direct comparison against Model A's MAE/RMSE. Feature
    importances are reported as descriptive only -- with this little data they
@@ -22,8 +22,8 @@ Both LOOCV loops take the raw panel (not a precomputed pillar-score table)
 and use `features.loocv_folds` so percentile-rank scaling is rebuilt on the
 41 training countries every fold -- scaling the held-out country's features
 against a distribution that includes itself would leak feature-engineering
-information into a number reported as out-of-sample. See CLAUDE.md's
-validation-integrity note and `scorecard.py`'s matching fix.
+information into a number reported as out-of-sample. See `scorecard.py`'s
+matching fix.
 """
 from __future__ import annotations
 
@@ -93,7 +93,7 @@ def fit_ordered_logit_loocv(panel: pd.DataFrame, notch: pd.Series) -> pd.DataFra
         for anyone who wants more than the interval (e.g. the dashboard)
       outside_ci                 -- True if the actual band falls outside
         [band_ci_lower, band_ci_upper] -- a stricter, statistically-aware
-        divergence flag than "the point estimate differs," per CLAUDE.md
+        divergence flag than "the point estimate differs"
     NaN for countries excluded from training.
     """
     import mord
@@ -138,8 +138,8 @@ def fit_gbm_loocv(panel: pd.DataFrame, notch: pd.Series,
     other country, with pillar scores rebuilt fold-wise from `panel` (see
     module docstring). Returns (predictions, mean_feature_importance) -- the
     latter is the average of each LOOCV fold's importances, reported as
-    descriptive only (CLAUDE.md: "treat XGBoost feature importances as
-    descriptive, not predictive" given N~42).
+    descriptive only: treat XGBoost feature importances as descriptive, not
+    predictive, given N~42.
     """
     from xgboost import XGBRegressor
 
